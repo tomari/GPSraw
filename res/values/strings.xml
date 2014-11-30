@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GPSraw</string>
+    <string name="title_activity_main">GPSraw</string>
+	<string name="placeholder_lat">N35°39\'30.959\"</string>
+	<string name="placeholder_long">E139°44\'43.594\"</string>
+	<string name="placeholder_alt">1823 m</string>
+	<string name="copy_loc">Copy</string>
+	<string name="lat_north">N</string>
+	<string name="lat_south">S</string>
+	<string name="long_east">E</string>
+	<string name="long_west">W</string>
+	<string name="alt_meters"> m</string>
+	<string name="degrees">°</string>
+	<string name="minutes">\'</string>
+	<string name="seconds">\"</string>
+</resources>

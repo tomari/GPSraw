@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="numbers_size">72sp</dimen>
+    <dimen name="padding_above_altitude">16dp</dimen>
+</resources>
