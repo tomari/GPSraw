@@ -66,26 +66,45 @@ public class MainActivity extends Activity implements android.location.LocationL
 		return new String(arr).substring(0,cutoffLen+1);
 	}
 	private String convertLatitude(double latitude) {
-		String res=getResources().getString((latitude>=0.)?R.string.lat_north:R.string.lat_south);
+		boolean isNorth=latitude>=0.;
+		Resources r=getResources();
+		String res=r.getString(isNorth?R.string.lat_north_prefix:R.string.lat_south_prefix);
 		double alat=Math.abs(latitude);
-		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)));
+		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)))
+				.concat(r.getString(isNorth?R.string.lat_north:R.string.lat_south));
 	}
 	private String convertLongitude(double longitude) {
-		String res=getResources().getString((longitude>=0.)?R.string.long_east:R.string.long_west);
+		boolean isEast=longitude>=0.;
+		Resources r=getResources();
+		String res=r.getString(isEast?R.string.long_east_prefix:R.string.long_west_prefix);
 		double along=Math.abs(longitude);
-		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)));
+		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)))
+				.concat(r.getString(isEast?R.string.long_east:R.string.long_west));
 	}
 	private void putLocationOnScreen(Location loc) {
 		double latitude=loc.getLatitude();
 		double longitude=loc.getLongitude();
 		double altitude=loc.getAltitude();
 		String lat_string=convertLatitude(latitude);
-		String long_string=convertLongitude(longitude);
-		String alt_string=NumberFormat.getInstance().format(altitude)
-				.concat(getResources().getString(R.string.alt_meters));
 		setTextViewContent(R.id.latTextView,lat_string);
+		String long_string=convertLongitude(longitude);
 		setTextViewContent(R.id.longTextView,long_string);
+		
+		NumberFormat nf=NumberFormat.getInstance();
+		Resources r=getResources();
+		String alt_string;
+		if(loc.hasAltitude()) {
+			alt_string=nf.format(altitude)
+				.concat(r.getString(R.string.suffix_meters));
+		} else { alt_string=getResources().getString(R.string.placeholder_alt); }
 		setTextViewContent(R.id.altTextView,alt_string);
+		String acc_string;
+		if(loc.hasAccuracy()) {
+			acc_string=r.getString(R.string.accuracy_prefix)
+					.concat(nf.format(loc.getAccuracy()))
+					.concat(r.getString(R.string.suffix_meters));
+		} else { acc_string=getResources().getString(R.string.placeholder_acc); }
+		setTextViewContent(R.id.accuracyTextView,acc_string);
 	}
 	@Override
 	public void onLocationChanged(Location loc) {
