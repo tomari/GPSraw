@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class MainActivity extends Activity implements android.location.LocationL
 	private void setSatteliteStatus(boolean searching) {
 		ProgressBar pbar=(ProgressBar) findViewById(R.id.progressBar);
 		pbar.setIndeterminate(searching);
+		pbar.setVisibility(searching?View.VISIBLE:View.INVISIBLE);
 	}
 	private void setTextViewContent(int textviewid, String str) {
 		TextView v=(TextView) findViewById(textviewid);
