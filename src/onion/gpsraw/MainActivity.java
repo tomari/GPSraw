@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements android.location.LocationListener {
 	@Override
@@ -146,6 +147,7 @@ public class MainActivity extends Activity implements android.location.LocationL
 	private void copyToClipboard() {
 		ClipboardManager cm=(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 		cm.setText(getLocationText());
+		Toast.makeText(this, R.string.toast_copied, Toast.LENGTH_SHORT).show();
 	}
 	private String getLocationText() {
 		TextView latView=(TextView)findViewById(R.id.latTextView);
