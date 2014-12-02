@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements android.location.LocationListener {
+	int kirisute_digits=3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class MainActivity extends Activity implements android.location.LocationL
 			buf.setCharAt(idx, r.getString(R.string.minutes).charAt(0));
 		}
 		if((idx=buf.indexOf(period,idx+1))>0) {
-			buf.setLength(Math.min(idx+4,buf.length()));
+			buf.setLength(Math.min(idx+1+kirisute_digits,buf.length()));
 		}
 		buf.append(r.getString(R.string.seconds));
 		buf.append(suffix);
