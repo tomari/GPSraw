@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.text.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements android.location.LocationListener {
-	int kirisute_digits=3;
+	private int kirisute_digits=3;
+	private String preferred_provider=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,11 +41,29 @@ public class MainActivity extends Activity implements android.location.LocationL
 	
 	private void setupLocationListener() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		if(locationManager!=null) {
+			String provider;
+			if(preferred_provider==null) {
+				Criteria c=new Criteria();
+				c.setAccuracy(Criteria.ACCURACY_FINE);
+				c.setBearingRequired(false);
+				c.setCostAllowed(true);
+				c.setSpeedRequired(false);
+				c.setPowerRequirement(Criteria.NO_REQUIREMENT);
+				provider=locationManager.getBestProvider(c,true);
+			} else {
+				provider=preferred_provider;
+			}
+			if(provider!=null && locationManager.getProvider(provider)!=null) {
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+			}
+		}
 	}
 	private void detachLocationServices() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		locationManager.removeUpdates(this);
+		if(locationManager!=null) {
+			locationManager.removeUpdates(this);
+		}
 	}
 	private void setSatteliteStatus(boolean searching) {
 		ProgressBar pbar=(ProgressBar) findViewById(R.id.progressBar);
@@ -116,6 +137,8 @@ public class MainActivity extends Activity implements android.location.LocationL
 			int satellites=extras.getInt("satellites");
 			setTextViewContent(R.id.numSatteliteTextView,nf.format(satellites));
 		}
+		
+		setTextViewContent(R.id.providerTextView,loc.getProvider());
 	}
 	@Override
 	public void onLocationChanged(Location loc) {

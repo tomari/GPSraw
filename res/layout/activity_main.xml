@@ -66,5 +66,13 @@
 		android:layout_alignParentTop="true"
 		android:text="@string/placeholder_nsatellite"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
-
+	<TextView
+		android:id="@+id/providerTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
+	
 </RelativeLayout>
