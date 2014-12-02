@@ -2,7 +2,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingTop="@dimen/activity_vertical_margin"
 	
 	tools:context="onion.gpsraw.MainActivity" >
 
@@ -57,5 +56,15 @@
 		android:layout_centerHorizontal="true"
 		android:text="@string/placeholder_acc"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	<TextView
+		android:id="@+id/numSatteliteTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:text="@string/placeholder_nsatellite"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GPSraw</string>
-    <string name="title_activity_main">GPSraw</string>
+	<string name="app_name">GPSraw</string>
+	<string name="title_activity_main">GPSraw</string>
 <!-- for ui design
 	<string name="placeholder_lat">N35°39\'30.959\"</string>
 	<string name="placeholder_long">E139°44\'43.594\"</string>
@@ -12,6 +12,7 @@
 	<string name="placeholder_long"></string>
 	<string name="placeholder_alt"></string>
 	<string name="placeholder_acc"></string>
+	<string name="placeholder_nsatellite">0</string>
 	<string name="copy_loc">Copy</string>
 	<string name="lat_north">N</string>
 	<string name="lat_south">S</string>
@@ -21,7 +22,7 @@
 	<string name="lat_south_prefix"></string>
 	<string name="long_east_prefix"></string>
 	<string name="long_west_prefix"></string>
-	<string name="suffix_meters"> m</string>
+	<string name="suffix_meters">\u0020m</string>
 	<string name="degrees">°</string>
 	<string name="minutes">\'</string>
 	<string name="seconds">\"</string>

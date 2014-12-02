@@ -108,6 +108,11 @@ public class MainActivity extends Activity implements android.location.LocationL
 					.concat(r.getString(R.string.suffix_meters));
 		} else { acc_string=getResources().getString(R.string.placeholder_acc); }
 		setTextViewContent(R.id.accuracyTextView,acc_string);
+		Bundle extras;
+		if(null!=(extras=loc.getExtras())) {
+			int satellites=extras.getInt("satellites");
+			setTextViewContent(R.id.numSatteliteTextView,nf.format(satellites));
+		}
 	}
 	@Override
 	public void onLocationChanged(Location loc) {
