@@ -153,10 +153,11 @@ public class MainActivity extends Activity implements android.location.LocationL
 	
 	private void copyToClipboard() {
 		ClipboardManager cm=(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		cm.setText(getLocationText());
-		Toast.makeText(this, R.string.toast_copied, Toast.LENGTH_SHORT).show();
+		CharSequence locationStr=getLocationText();
+		cm.setText(locationStr);
+		Toast.makeText(this, locationStr, Toast.LENGTH_SHORT).show();
 	}
-	private String getLocationText() {
+	private CharSequence getLocationText() {
 		TextView latView=(TextView)findViewById(R.id.latTextView);
 		TextView longView=(TextView)findViewById(R.id.longTextView);
 		return latView.getText().toString().concat(" ").concat(longView.getText().toString());

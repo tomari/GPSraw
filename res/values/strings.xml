@@ -28,5 +28,4 @@
 	<string name="seconds">\"</string>
 	<string name="accuracy_prefix">±</string>
 	<string name="action_settings">Settings</string>
-	<string name="toast_copied">Copied location to Clipboard</string>
 </resources>
