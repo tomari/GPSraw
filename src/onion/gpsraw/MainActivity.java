@@ -48,49 +48,51 @@ public class MainActivity extends Activity implements android.location.LocationL
 		pbar.setIndeterminate(searching);
 		pbar.setVisibility(searching?View.VISIBLE:View.INVISIBLE);
 	}
-	private void setTextViewContent(int textviewid, String str) {
+	private void setTextViewContent(int textviewid, CharSequence str) {
 		TextView v=(TextView) findViewById(textviewid);
 		v.setText(str);
 	}
-	private String format60(String input) {
+	private CharSequence format60(CharSequence input, CharSequence suffix) {
 		Resources r=getResources();
-		char arr[]=input.toCharArray();
-		int i=0, cutoffLen=arr.length;
-		for(; i<arr.length; i++) {
-			if(arr[i] == ':') { arr[i]=r.getString(R.string.degrees).charAt(0); break; } }
-		for(; i<arr.length; i++) {
-			if(arr[i] == ':') { arr[i]=r.getString(R.string.minutes).charAt(0); break; } }
-		for(; i<arr.length; i++) {
-			if(arr[i]=='.') {
-				cutoffLen=Math.min(i+3,arr.length-1);
-			}
+		StringBuilder buf=new StringBuilder(input);
+		final String separator=":",period=".";
+		int idx;
+		if((idx=buf.indexOf(separator))>0) {
+			buf.setCharAt(idx, r.getString(R.string.degrees).charAt(0));
 		}
-		arr[cutoffLen]=r.getString(R.string.seconds).charAt(0);
-		return new String(arr).substring(0,cutoffLen+1);
+		if((idx=buf.indexOf(separator,idx+1))>0) {
+			buf.setCharAt(idx, r.getString(R.string.minutes).charAt(0));
+		}
+		if((idx=buf.indexOf(period,idx+1))>0) {
+			buf.setLength(Math.min(idx+4,buf.length()));
+		}
+		buf.append(r.getString(R.string.seconds));
+		buf.append(suffix);
+		return buf;
 	}
-	private String convertLatitude(double latitude) {
+	private CharSequence convertLatitude(double latitude) {
 		boolean isNorth=latitude>=0.;
 		Resources r=getResources();
 		String res=r.getString(isNorth?R.string.lat_north_prefix:R.string.lat_south_prefix);
 		double alat=Math.abs(latitude);
-		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)))
-				.concat(r.getString(isNorth?R.string.lat_north:R.string.lat_south));
+		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)),
+				r.getString(isNorth?R.string.lat_north:R.string.lat_south));
 	}
-	private String convertLongitude(double longitude) {
+	private CharSequence convertLongitude(double longitude) {
 		boolean isEast=longitude>=0.;
 		Resources r=getResources();
 		String res=r.getString(isEast?R.string.long_east_prefix:R.string.long_west_prefix);
 		double along=Math.abs(longitude);
-		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)))
-				.concat(r.getString(isEast?R.string.long_east:R.string.long_west));
+		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)),
+				r.getString(isEast?R.string.long_east:R.string.long_west));
 	}
 	private void putLocationOnScreen(Location loc) {
 		double latitude=loc.getLatitude();
 		double longitude=loc.getLongitude();
 		double altitude=loc.getAltitude();
-		String lat_string=convertLatitude(latitude);
+		CharSequence lat_string=convertLatitude(latitude);
 		setTextViewContent(R.id.latTextView,lat_string);
-		String long_string=convertLongitude(longitude);
+		CharSequence long_string=convertLongitude(longitude);
 		setTextViewContent(R.id.longTextView,long_string);
 		
 		NumberFormat nf=NumberFormat.getInstance();
