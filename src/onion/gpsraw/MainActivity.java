@@ -69,6 +69,8 @@ public class MainActivity extends Activity implements android.location.LocationL
 		ProgressBar pbar=(ProgressBar) findViewById(R.id.progressBar);
 		pbar.setIndeterminate(searching);
 		pbar.setVisibility(searching?View.VISIBLE:View.INVISIBLE);
+		View nSatellite=findViewById(R.id.numSatteliteTextView);
+		nSatellite.setVisibility(searching?View.INVISIBLE:View.VISIBLE);
 	}
 	private void setTextViewContent(int textviewid, CharSequence str) {
 		TextView v=(TextView) findViewById(textviewid);
