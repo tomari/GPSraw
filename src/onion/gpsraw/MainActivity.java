@@ -95,7 +95,7 @@ public class MainActivity extends Activity implements android.location.LocationL
 		providerArrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,providers);
 		providerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 		providerArrayAdapter.insert(getResources().getString(R.string.provider_auto).concat(bestProvider), 0);
-		int idx=1+((preferred_provider==null)?-1:providers.indexOf(preferred_provider));
+		int idx=(preferred_provider==null)?-1:providers.indexOf(preferred_provider);
 		if(Build.VERSION.SDK_INT<Build.VERSION_CODES.HONEYCOMB ) {
 			providerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			sp.setAdapter(providerArrayAdapter);
