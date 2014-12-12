@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -146,8 +147,23 @@ public class MainActivity extends Activity implements android.location.LocationL
 		ProgressBar pbar=(ProgressBar) findViewById(R.id.progressBar);
 		pbar.setIndeterminate(searching);
 		pbar.setVisibility(searching?View.VISIBLE:View.INVISIBLE);
-		View nSatellite=findViewById(R.id.numSatelliteTextView);
 		if(searching) {
+			View nSatellite=findViewById(R.id.numSatelliteTextView);
+			nSatellite.setVisibility(View.INVISIBLE);
+		}
+	}
+	private static final int SATELLITE_STATUS_LOCKED=0;
+	private static final int SATELLITE_STATUS_SEARCHING=1;
+	private static final int SATELLITE_STATUS_UNAVAIL=2;
+	private void setSatelliteStatus(int status) {
+		if(status==SATELLITE_STATUS_LOCKED) {  setSatelliteStatus(false); }
+		else if(status==SATELLITE_STATUS_SEARCHING) { setSatelliteStatus(true); }
+		else if(status==SATELLITE_STATUS_UNAVAIL) {
+			ProgressBar pbar=(ProgressBar) findViewById(R.id.progressBar);
+			pbar.setProgress(0);
+			pbar.setIndeterminate(false);
+			pbar.setVisibility(View.VISIBLE);
+			View nSatellite=findViewById(R.id.numSatelliteTextView);
 			nSatellite.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -246,7 +262,13 @@ public class MainActivity extends Activity implements android.location.LocationL
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		setSatelliteStatus(true);
+		if(status==LocationProvider.OUT_OF_SERVICE) {
+			setSatelliteStatus(SATELLITE_STATUS_UNAVAIL);
+		} else if(status==LocationProvider.TEMPORARILY_UNAVAILABLE) {
+			setSatelliteStatus(true);
+		} else if(status==LocationProvider.AVAILABLE) {
+			setSatelliteStatus(false);
+		}
 	}
 	
 	@Override
