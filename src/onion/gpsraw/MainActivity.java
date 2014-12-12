@@ -279,19 +279,18 @@ public class MainActivity extends Activity implements android.location.LocationL
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		int itemId=item.getItemId();
-		if(itemId==R.id.action_copy) {
-			copyToClipboard();
+		if(itemId==R.id.action_settings) {
+			
 		} else {
 			return super.onMenuItemSelected(featureId,item);
 		}
 		return true;
 	}
 	
-	private void copyToClipboard() {
+	private void copyToClipboard(CharSequence str) {
 		ClipboardManager cm=(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		CharSequence locationStr=getLocationText();
-		cm.setText(locationStr);
-		Toast.makeText(this, locationStr, Toast.LENGTH_SHORT).show();
+		cm.setText(str);
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
 	}
 	private CharSequence getLocationText() {
 		TextView latView=(TextView)findViewById(R.id.latTextView);
@@ -304,5 +303,12 @@ public class MainActivity extends Activity implements android.location.LocationL
 			preferred_provider=(String)providerArrayAdapter.getItem(index);
 		} else { preferred_provider=null; }
 		setSatelliteStatus(setupLocationListener());
+	}
+	public void copyLocation(View v) {
+		copyToClipboard(getLocationText());
+	}
+	public void copyAltitude(View v) {
+		TextView altTextView=(TextView)findViewById(R.id.altTextView);
+		copyToClipboard(altTextView.getText());
 	}
 }

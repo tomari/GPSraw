@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 	<item
-		android:id="@+id/action_copy"
-		android:orderInCategory="100"
-		android:title="@string/copy_loc"
-		android:icon="@drawable/content_copy"
-		android:showAsAction="ifRoom"
-	/>
-	<item
 		android:id="@+id/action_settings"
 		android:orderInCategory="1000"
 		android:title="@string/action_settings"

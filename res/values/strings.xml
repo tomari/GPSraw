@@ -13,7 +13,6 @@
 	<string name="placeholder_alt"></string>
 	<string name="placeholder_acc"></string>
 	<string name="placeholder_nsatellite">0</string>
-	<string name="copy_loc">Copy</string>
 	<string name="lat_north">N</string>
 	<string name="lat_south">S</string>
 	<string name="long_east">E</string>

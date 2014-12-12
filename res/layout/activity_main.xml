@@ -13,7 +13,9 @@
 		android:layout_centerVertical="true"
 		android:text="@string/placeholder_long"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textSize="@dimen/numbers_size" />
+		android:textSize="@dimen/numbers_size"
+		android:clickable="true"
+		android:onClick="copyLocation" />
 
 	<TextView
 		android:id="@+id/latTextView"
@@ -23,7 +25,9 @@
 		android:layout_centerHorizontal="true"
 		android:text="@string/placeholder_lat"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textSize="@dimen/numbers_size" />
+		android:textSize="@dimen/numbers_size"
+		android:clickable="true"
+		android:onClick="copyLocation" />
 
 	<TextView
 		android:id="@+id/altTextView"
@@ -34,7 +38,9 @@
 		android:text="@string/placeholder_alt"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textSize="@dimen/numbers_size"
-		android:paddingTop="@dimen/padding_above_altitude" />
+		android:paddingTop="@dimen/padding_above_altitude"
+		android:clickable="true"
+		android:onClick="copyAltitude" />
 
 	<ProgressBar
 		android:id="@+id/progressBar"
