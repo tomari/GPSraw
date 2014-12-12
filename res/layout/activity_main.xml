@@ -58,25 +58,25 @@
 		android:textAppearance="?android:attr/textAppearanceSmall" />
 
 	<TextView
-		android:id="@+id/providerTextView"
+		android:id="@+id/numSatelliteTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:drawableLeft="@drawable/satellite"
+		android:drawablePadding="@dimen/padding_satellite_icon"
+		android:drawableStart="@drawable/satellite"
+		android:text="@string/placeholder_nsatellite"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:visibility="invisible" />
+
+	<Spinner
+		android:id="@+id/providerSpinner"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_alignParentTop="true"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<TextView
-	    android:id="@+id/numSatteliteTextView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_centerHorizontal="true"
-	    android:drawableLeft="@drawable/satellite"
-	    android:drawablePadding="@dimen/padding_satellite_icon"
-	    android:drawableStart="@drawable/satellite"
-	    android:text="@string/placeholder_nsatellite"
-	    android:textAppearance="?android:attr/textAppearanceMedium"
-	    android:visibility="invisible" />
+		android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

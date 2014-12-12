@@ -28,4 +28,6 @@
 	<string name="seconds">\"</string>
 	<string name="accuracy_prefix">±</string>
 	<string name="action_settings">Settings</string>
+	<string name="location_extra_satellites_key">satellites</string>
+	<string name="provider_auto">Auto\u0020</string>
 </resources>
