@@ -71,14 +71,6 @@ public class MainActivity extends Activity implements android.location.LocationL
 		c.setPowerRequirement(Criteria.NO_REQUIREMENT);
 		return locationManager.getBestProvider(c,true);
 	}
-	private boolean registerLocationUpdates(LocationManager locationManager, String bestLocationProvider) {
-		String provider=(preferred_provider==null)?bestLocationProvider:preferred_provider;
-		if(provider!=null && locationManager.getProvider(provider)!=null) {
-			locationManager.requestLocationUpdates(provider, 0, 0, this);
-			return true;
-		}
-		return false;
-	}
 	@SuppressWarnings("deprecation")
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void prepareActionBarSpinner(ArrayAdapter<String> adapter, int selectedIndex) {
@@ -136,7 +128,11 @@ public class MainActivity extends Activity implements android.location.LocationL
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(locationManager!=null) {
 			// set selected provider and register update notifications
-			return registerLocationUpdates(locationManager,bestProvider);
+			String provider=(preferred_provider==null)?bestProvider:preferred_provider;
+			if(provider!=null && locationManager.getProvider(provider)!=null) {
+				locationManager.requestLocationUpdates(provider, 0, 0, this);
+				return true;
+			}
 		}
 		return false;
 	}
