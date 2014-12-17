@@ -4,13 +4,12 @@ import java.text.NumberFormat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-public class LocationFormatter implements OnSharedPreferenceChangeListener {
+public class LocationFormatter implements SharedPreferences.OnSharedPreferenceChangeListener {
 	private Context context;
 	private int cutoff_digits=3;
 	private int unitOfLength=0;
@@ -35,11 +34,12 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 		shrP.registerOnSharedPreferenceChangeListener(this);
 	}
 	private void loadUnitOfLength(SharedPreferences shrP) {
-		String uOL_str=shrP.getString(SettingsActivity.unitOfLength, "0");
+		String uOL_default=context.getResources().getString(R.string.unitoflength_default);
+		String uOL_str=shrP.getString(SettingsActivity.unitOfLength, uOL_default);
 		try {
 			unitOfLength=Integer.parseInt(uOL_str);
 		} catch (NumberFormatException e) {
-			unitOfLength=0;
+			unitOfLength=Integer.parseInt(uOL_default);
 		}
 	}
 	private void loadMantissaDigits(SharedPreferences shrP) {
@@ -52,11 +52,12 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 		}
 	}
 	private void loadLocationFormat(SharedPreferences shrP) {
-		String lf_str=shrP.getString(SettingsActivity.locationFormat,"2");
+		String lf_default=context.getResources().getString(R.string.locationformat_default);
+		String lf_str=shrP.getString(SettingsActivity.locationFormat,lf_default);
 		try {
 			locationFormat=Integer.parseInt(lf_str);
 		} catch (NumberFormatException e) {
-			locationFormat=Location.FORMAT_SECONDS;
+			locationFormat=Integer.parseInt(lf_default);
 		}
 	}
 	@Override
