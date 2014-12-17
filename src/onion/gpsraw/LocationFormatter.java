@@ -14,6 +14,7 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 	private Context context;
 	private int cutoff_digits=3;
 	private int unitOfLength=0;
+	private int locationFormat=Location.FORMAT_SECONDS;
 	private NumberFormat nf;
 	
 	public LocationFormatter(Context context) {
@@ -28,21 +29,37 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 	}
 	private void loadPreferences() {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(context);
+		loadUnitOfLength(shrP);
+		loadLocationFormat(shrP);
+		shrP.registerOnSharedPreferenceChangeListener(this);
+	}
+	private void loadUnitOfLength(SharedPreferences shrP) {
 		String uOL_str=shrP.getString(SettingsActivity.unitOfLength, "0");
 		try {
 			unitOfLength=Integer.parseInt(uOL_str);
 		} catch (NumberFormatException e) {
 			unitOfLength=0;
 		}
-		shrP.registerOnSharedPreferenceChangeListener(this);
+	}
+	private void loadLocationFormat(SharedPreferences shrP) {
+		String lf_str=shrP.getString(SettingsActivity.locationFormat,"2");
+		try {
+			locationFormat=Integer.parseInt(lf_str);
+		} catch (NumberFormatException e) {
+			locationFormat=Location.FORMAT_SECONDS;
+		}
 	}
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences shrP, String key) {
-		
+		if(SettingsActivity.unitOfLength.equals(key)) {
+			loadUnitOfLength(shrP);
+		} else if(SettingsActivity.locationFormat.equals(key)) {
+			loadLocationFormat(shrP);
+		}
 	}
 	
 	
-	private CharSequence format60(CharSequence input, CharSequence suffix) {
+	private CharSequence format60(CharSequence prefix, CharSequence input, CharSequence suffix) {
 		Resources r=context.getResources();
 		StringBuilder buf=new StringBuilder(input);
 		final String separator=":",period=".";
@@ -56,27 +73,41 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 		if((idx=buf.indexOf(period,idx+1))>0) {
 			buf.setLength(Math.min(idx+1+cutoff_digits,buf.length()));
 		}
-		buf.append(r.getString(R.string.seconds));
-		buf.append(suffix);
+		final int last_suffixes[]={R.string.degrees,R.string.minutes,R.string.seconds};
+		buf.append(r.getString(last_suffixes[locationFormat]));
+		if(prefix!=null) { buf.insert(0, prefix); }
+		if(suffix!=null) { buf.append(suffix); }
 		return buf;
 	}
 	public CharSequence convertLatitude(Location loc) {
 		double latitude=loc.getLatitude();
 		boolean isNorth=latitude>=0.;
 		Resources r=context.getResources();
-		String res=r.getString(isNorth?R.string.lat_north_prefix:R.string.lat_south_prefix);
-		double alat=Math.abs(latitude);
-		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)),
-				r.getString(isNorth?R.string.lat_north:R.string.lat_south));
+		String prefix=null, suffix=null;
+		double alat;
+		if(locationFormat==Location.FORMAT_DEGREES) {
+			alat=latitude;
+		} else {
+			prefix=r.getString(isNorth?R.string.lat_north_prefix:R.string.lat_south_prefix);
+			alat=Math.abs(latitude);
+			suffix=r.getString(isNorth?R.string.lat_north:R.string.lat_south);
+		}
+		return format60(prefix,Location.convert(alat,locationFormat),suffix);
 	}
 	public CharSequence convertLongitude(Location loc) {
 		double longitude=loc.getLongitude();
 		boolean isEast=longitude>=0.;
 		Resources r=context.getResources();
-		String res=r.getString(isEast?R.string.long_east_prefix:R.string.long_west_prefix);
-		double along=Math.abs(longitude);
-		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)),
-				r.getString(isEast?R.string.long_east:R.string.long_west));
+		String prefix=null,suffix=null;
+		double along;
+		if(locationFormat==Location.FORMAT_DEGREES) {
+			along=longitude;
+		} else {
+			prefix=r.getString(isEast?R.string.long_east_prefix:R.string.long_west_prefix);
+			along=Math.abs(longitude);
+			suffix=r.getString(isEast?R.string.long_east:R.string.long_west);
+		}
+		return format60(prefix,Location.convert(along, locationFormat),suffix);
 	}
 	private int m_to_ft(double m) {
 		return (int) Math.round(m*3.28084);

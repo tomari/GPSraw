@@ -6,4 +6,10 @@
 		android:entries="@array/unitoflength_labels"
 		android:entryValues="@array/unitoflength_values"
 		android:defaultValue="@string/unitoflength_default" />
+	<ListPreference 
+		android:key="pref_locationformat"
+		android:title="@string/locationformat"
+		android:entries="@array/locationformat_labels"
+		android:entryValues="@array/locationformat_values"
+		android:defaultValue="@string/locationformat_default" />
 </PreferenceScreen>

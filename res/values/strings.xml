@@ -36,4 +36,9 @@
 	<string name="unitoflength_meters">m</string>
 	<string name="unitoflength_feet">ft</string>
 	<string name="unitoflength_default">0</string>
+	<string name="locationformat">Location format</string>
+	<string name="locationformat_seconds">DDD°MM\'SS.SS\"</string>
+	<string name="locationformat_minutes">DDD°MM.MMMM\'</string>
+	<string name="locationformat_degrees">±DDD.DDDD°</string>
+	<string name="locationformat_default">2</string>
 </resources>
