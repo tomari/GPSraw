@@ -11,8 +11,9 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
-	public static String unitOfLength="pref_unitoflength";
-	public static String locationFormat="pref_locationformat";
+	public static final String unitOfLength="pref_unitoflength";
+	public static final String locationFormat="pref_locationformat";
+	public static final String mantissaDigits="pref_mantissadigits";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -12,4 +12,10 @@
 		android:entries="@array/locationformat_labels"
 		android:entryValues="@array/locationformat_values"
 		android:defaultValue="@string/locationformat_default" />
+	<ListPreference 
+		android:key="pref_mantissadigits"
+		android:title="@string/mantissadigits"
+		android:entries="@array/mantissadigits_labels"
+		android:entryValues="@array/mantissadigits_values"
+		android:defaultValue="@string/mantissadigits_default" />
 </PreferenceScreen>

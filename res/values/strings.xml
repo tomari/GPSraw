@@ -41,4 +41,11 @@
 	<string name="locationformat_minutes">DDD°MM.MMMM\'</string>
 	<string name="locationformat_degrees">±DDD.DDDD°</string>
 	<string name="locationformat_default">2</string>
+	<string name="mantissadigits">Mantissa digits</string>
+	<string name="mantissadigits_2">2</string>
+	<string name="mantissadigits_3">3</string>
+	<string name="mantissadigits_4">4</string>
+	<string name="mantissadigits_5">5</string>
+	<string name="mantissadigits_6">6</string>
+	<string name="mantissadigits_default">3</string>
 </resources>

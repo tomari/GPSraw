@@ -31,6 +31,7 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(context);
 		loadUnitOfLength(shrP);
 		loadLocationFormat(shrP);
+		loadMantissaDigits(shrP);
 		shrP.registerOnSharedPreferenceChangeListener(this);
 	}
 	private void loadUnitOfLength(SharedPreferences shrP) {
@@ -39,6 +40,15 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 			unitOfLength=Integer.parseInt(uOL_str);
 		} catch (NumberFormatException e) {
 			unitOfLength=0;
+		}
+	}
+	private void loadMantissaDigits(SharedPreferences shrP) {
+		String md_default=context.getResources().getString(R.string.mantissadigits_default);
+		String mD_str=shrP.getString(SettingsActivity.mantissaDigits,md_default);
+		try {
+			cutoff_digits=Integer.parseInt(mD_str);
+		} catch (NumberFormatException e) {
+			cutoff_digits=Integer.parseInt(md_default);
 		}
 	}
 	private void loadLocationFormat(SharedPreferences shrP) {
@@ -55,6 +65,8 @@ public class LocationFormatter implements OnSharedPreferenceChangeListener {
 			loadUnitOfLength(shrP);
 		} else if(SettingsActivity.locationFormat.equals(key)) {
 			loadLocationFormat(shrP);
+		} else if(SettingsActivity.mantissaDigits.equals(key)) {
+			loadMantissaDigits(shrP);
 		}
 	}
 	
