@@ -102,15 +102,19 @@ public class MainActivity extends GPSActivity {
 	protected TextView numSatellitesTextView() {
 		return (TextView)findViewById(R.id.numSatelliteTextView);
 	}
+	@Override
 	protected TextView latitudeTextView() {
 		return (TextView) findViewById(R.id.latTextView);
 	}
+	@Override
 	protected TextView longitudeTextView() {
 		return (TextView) findViewById(R.id.longTextView);
 	}
+	@Override
 	protected TextView altitudeTextView() {
 		return (TextView) findViewById(R.id.altTextView);
 	}
+	@Override
 	protected TextView accuracyTextView() {
 		return (TextView) findViewById(R.id.accuracyTextView);
 	}
