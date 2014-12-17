@@ -22,6 +22,7 @@
 	<string name="long_east_prefix"></string>
 	<string name="long_west_prefix"></string>
 	<string name="suffix_meters">\u0020m</string>
+	<string name="suffix_feet">\u0020ft</string>
 	<string name="degrees">°</string>
 	<string name="minutes">\'</string>
 	<string name="seconds">\"</string>
@@ -29,4 +30,10 @@
 	<string name="action_settings">Settings</string>
 	<string name="location_extra_satellites_key">satellites</string>
 	<string name="provider_auto">Auto\u0020</string>
+	
+	<string name="title_activity_settings">Settings</string>
+	<string name="unitoflength">Unit of length</string>
+	<string name="unitoflength_meters">m</string>
+	<string name="unitoflength_feet">ft</string>
+	<string name="unitoflength_default">0</string>
 </resources>

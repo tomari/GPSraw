@@ -1,6 +1,5 @@
 package onion.gpsraw;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 import android.annotation.TargetApi;
@@ -8,8 +7,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.text.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -29,11 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements android.location.LocationListener {
-	private int kirisute_digits=3;
 	private String preferred_provider=null;
-	private static final String PREFERRED_PROVIDER_LABEL="preferred_provider";
+	public static final String PREFERRED_PROVIDER_LABEL="preferred_provider";
 	private ArrayAdapter<String> providerArrayAdapter;
 	private String bestProvider;
+	private LocationFormatter locFormatter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,11 +54,13 @@ public class MainActivity extends Activity implements android.location.LocationL
 	@Override
 	public void onResume() {
 		super.onResume();
+		locFormatter=new LocationFormatter(this);
 		setSatelliteStatus(setupLocationListener());
 	}
 	@Override
 	public void onPause() {
 		detachLocationServices();
+		locFormatter=locFormatter.bye();
 		savePreferences();
 		super.onPause();
 	}
@@ -175,76 +176,21 @@ public class MainActivity extends Activity implements android.location.LocationL
 		TextView v=(TextView) findViewById(textviewid);
 		v.setText(resourceid);
 	}
-	private CharSequence format60(CharSequence input, CharSequence suffix) {
-		Resources r=getResources();
-		StringBuilder buf=new StringBuilder(input);
-		final String separator=":",period=".";
-		int idx;
-		if((idx=buf.indexOf(separator))>0) {
-			buf.setCharAt(idx, r.getString(R.string.degrees).charAt(0));
-		}
-		if((idx=buf.indexOf(separator,idx+1))>0) {
-			buf.setCharAt(idx, r.getString(R.string.minutes).charAt(0));
-		}
-		if((idx=buf.indexOf(period,idx+1))>0) {
-			buf.setLength(Math.min(idx+1+kirisute_digits,buf.length()));
-		}
-		buf.append(r.getString(R.string.seconds));
-		buf.append(suffix);
-		return buf;
-	}
-	private CharSequence convertLatitude(double latitude) {
-		boolean isNorth=latitude>=0.;
-		Resources r=getResources();
-		String res=r.getString(isNorth?R.string.lat_north_prefix:R.string.lat_south_prefix);
-		double alat=Math.abs(latitude);
-		return format60(res.concat(Location.convert(alat,Location.FORMAT_SECONDS)),
-				r.getString(isNorth?R.string.lat_north:R.string.lat_south));
-	}
-	private CharSequence convertLongitude(double longitude) {
-		boolean isEast=longitude>=0.;
-		Resources r=getResources();
-		String res=r.getString(isEast?R.string.long_east_prefix:R.string.long_west_prefix);
-		double along=Math.abs(longitude);
-		return format60(res.concat(Location.convert(along, Location.FORMAT_SECONDS)),
-				r.getString(isEast?R.string.long_east:R.string.long_west));
-	}
 	private void putLocationOnScreen(Location loc) {
-		double latitude=loc.getLatitude();
-		double longitude=loc.getLongitude();
-		double altitude=loc.getAltitude();
-		CharSequence lat_string=convertLatitude(latitude);
-		setTextViewContent(R.id.latTextView,lat_string);
-		CharSequence long_string=convertLongitude(longitude);
-		setTextViewContent(R.id.longTextView,long_string);
+		setTextViewContent(R.id.latTextView,locFormatter.convertLatitude(loc));
+		setTextViewContent(R.id.longTextView,locFormatter.convertLongitude(loc));
+		setTextViewContent(R.id.altTextView,locFormatter.convertAltitude(loc));
+		setTextViewContent(R.id.accuracyTextView,locFormatter.convertAccuracy(loc));
 		
-		NumberFormat nf=NumberFormat.getInstance();
-		Resources r=getResources();
-		if(loc.hasAltitude()) {
-			String alt_string=nf.format(altitude)
-				.concat(r.getString(R.string.suffix_meters));
-			setTextViewContent(R.id.altTextView,alt_string);
-		} else {
-			setTextViewContent(R.id.altTextView,R.string.placeholder_alt); 
-		}
-		if(loc.hasAccuracy()) {
-			String acc_string=r.getString(R.string.accuracy_prefix)
-					.concat(nf.format(loc.getAccuracy()))
-					.concat(r.getString(R.string.suffix_meters));
-			setTextViewContent(R.id.accuracyTextView,acc_string);
-		} else {
-			setTextViewContent(R.id.accuracyTextView,R.string.placeholder_acc); 
-		}
-		Bundle extras;
-		String satellitesKey=r.getString(R.string.location_extra_satellites_key);
-		if(null!=(extras=loc.getExtras()) && extras.containsKey(satellitesKey)) {
-			int satellites=extras.getInt(satellitesKey);
+		CharSequence nSatellites=locFormatter.convertNumSatellites(loc);
+		if(nSatellites!=null) {
 			findViewById(R.id.numSatelliteTextView).setVisibility(View.VISIBLE);
-			setTextViewContent(R.id.numSatelliteTextView,nf.format(satellites));
+			setTextViewContent(R.id.numSatelliteTextView,nSatellites);
 		} else {
 			findViewById(R.id.numSatelliteTextView).setVisibility(View.INVISIBLE);
 			setTextViewContent(R.id.numSatelliteTextView,R.string.placeholder_nsatellite);
 		}
+
 	}
 	@Override
 	public void onLocationChanged(Location loc) {
@@ -280,7 +226,8 @@ public class MainActivity extends Activity implements android.location.LocationL
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		int itemId=item.getItemId();
 		if(itemId==R.id.action_settings) {
-			
+			Intent intent=new Intent(this,SettingsActivity.class);
+			startActivity(intent);
 		} else {
 			return super.onMenuItemSelected(featureId,item);
 		}
