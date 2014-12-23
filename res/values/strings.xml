@@ -4,8 +4,8 @@
 	<string name="app_name">GPSraw</string>
 	<string name="title_activity_main">GPSraw</string>
 <!-- for ui design
-	<string name="placeholder_lat">N35°39\'30.959\"</string>
-	<string name="placeholder_long">E139°44\'43.594\"</string>
+	<string name="placeholder_lat">35°39\'30.959\"N</string>
+	<string name="placeholder_long">139°44\'43.594\"E</string>
 	<string name="placeholder_alt">1823 m</string>
 -->
 	<string name="placeholder_lat"></string>
@@ -48,4 +48,16 @@
 	<string name="mantissadigits_5">5</string>
 	<string name="mantissadigits_6">6</string>
 	<string name="mantissadigits_default">3</string>
+	
+	<string name="title_activity_satellites">Satellites</string>
+	<string name="fstRowPRN">PRN\#</string>
+	<string name="fstRowAzi">Azi</string>
+	<string name="fstRowElev">Elev</string>
+	<string name="fstRowSnr">SNR</string>
+	<string name="fstRowHasAlmanac">Alma</string>
+	<string name="fstRowHasEphemeris">Ephe</string>
+	<string name="fstRowUsedInFix">Used</string>
+	<string name="action_satellites">Satellites</string>
+	<string name="checkmark">\u2713</string>
+	<string name="uncheckmark"></string>
 </resources>

@@ -1,4 +1,7 @@
 <resources>
 	<color name="primary">#0f0</color>
 	<color name="primary_dark">#0a0</color>
+	<color name="table_fstrow">#7f7</color>
+	<color name="table_oddrow">#ccf</color>
+	<color name="table_evenrow">#eef</color>
 </resources>

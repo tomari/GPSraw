@@ -6,4 +6,5 @@
 	<dimen name="numbers_size">36sp</dimen>
 	<dimen name="padding_above_altitude">16dp</dimen>
 	<dimen name="padding_satellite_icon">4dp</dimen>
+	<dimen name="padding_table_row">4dp</dimen>
 </resources>

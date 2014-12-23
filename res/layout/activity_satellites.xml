@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_marginTop="@dimen/activity_vertical_margin" >
+
+	<TextView
+		android:id="@+id/satLatTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:text="@string/placeholder_lat"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+	<TextView
+		android:id="@+id/satLongTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_below="@id/satLatTextView"
+		android:text="@string/placeholder_long"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+	<TextView
+		android:id="@+id/satAccuracyTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentTop="true"
+		android:text="@string/placeholder_acc"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+	<TextView
+		android:id="@+id/satAltTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_below="@id/satAccuracyTextView"
+		android:text="@string/placeholder_alt"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	<ProgressBar
+		android:id="@+id/satProgressBar"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:indeterminate="true" />
+	<TextView
+		android:id="@+id/satNumSatelliteTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:drawableLeft="@drawable/satellite"
+		android:drawablePadding="@dimen/padding_satellite_icon"
+		android:drawableStart="@drawable/satellite"
+		android:text="@string/placeholder_nsatellite"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:visibility="invisible" />
+
+	<ScrollView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/satNumSatelliteTextView"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:layout_below="@id/satLongTextView" >
+
+		<TableLayout
+			android:id="@+id/prntable"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal" >
+
+			<TableRow
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:background="@color/table_fstrow" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowPRN"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowAzi"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowElev"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowSnr"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowHasAlmanac"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowHasEphemeris"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/fstRowUsedInFix"
+					android:padding="@dimen/padding_table_row"
+					android:textAppearance="?android:attr/textAppearance"
+					android:textStyle="bold" />
+			</TableRow>
+		</TableLayout>
+
+	</ScrollView>
+	
+</RelativeLayout>

@@ -129,6 +129,9 @@ public class MainActivity extends GPSActivity {
 		if(itemId==R.id.action_settings) {
 			Intent intent=new Intent(this,SettingsActivity.class);
 			startActivity(intent);
+		} else if(itemId==R.id.action_satellites) {
+			Intent intent=new Intent(this,SatellitesActivity.class);
+			startActivity(intent);
 		} else {
 			return super.onMenuItemSelected(featureId,item);
 		}

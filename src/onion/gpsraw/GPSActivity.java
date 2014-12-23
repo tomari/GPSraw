@@ -1,5 +1,7 @@
 package onion.gpsraw;
 
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -45,7 +47,7 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 		locFormatter=locFormatter.bye();
 		super.onPause();
 	}
-	protected boolean setupLocationListener() {
+	private boolean setupLocationListener() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(locationManager!=null) {
 			// set selected provider and register update notifications
@@ -57,7 +59,7 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 		}
 		return false;
 	}
-	protected void detachLocationServices() {
+	private void detachLocationServices() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(locationManager!=null) {
 			locationManager.removeUpdates(this);
