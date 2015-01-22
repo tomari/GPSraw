@@ -48,6 +48,8 @@
 	<string name="mantissadigits_5">5</string>
 	<string name="mantissadigits_6">6</string>
 	<string name="mantissadigits_default">3</string>
+	<string name="pref_goweb">Visit website</string>
+	<string name="pref_weburl">http://davy.nyacom.net/gpsraw/</string>
 	
 	<string name="title_activity_satellites">Satellites</string>
 	<string name="fstRowPRN">PRN\#</string>
