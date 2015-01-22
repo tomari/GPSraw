@@ -3,6 +3,7 @@ package onion.gpsraw;
 import java.text.NumberFormat;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.GpsSatellite;
@@ -11,6 +12,7 @@ import android.location.GpsStatus;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
@@ -26,9 +28,16 @@ public class SatellitesActivity extends GPSActivity implements GpsStatus.Listene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_satellites);
+		if(android.os.Build.VERSION.SDK_INT>=11) {
+			addUpToActionbar();
+		}
 		checkMark=getResources().getString(R.string.checkmark);
 		uncheckMark=getResources().getString(R.string.uncheckmark);
 		nf=NumberFormat.getInstance();
+	}
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void addUpToActionbar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	@Override
 	public void onResume() {
@@ -124,5 +133,14 @@ public class SatellitesActivity extends GPSActivity implements GpsStatus.Listene
 			}
 		}
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int menuId=item.getItemId();
+		if(menuId==android.R.id.home) {
+			finish();
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+		return true;
+	}
 }
