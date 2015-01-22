@@ -4,6 +4,7 @@
 		android:id="@+id/action_satellites"
 		android:orderInCategory="500"
 		android:title="@string/action_satellites"
+		android:icon="@android:drawable/ic_menu_info_details"
 	/>
 	<item
 		android:id="@+id/action_settings"

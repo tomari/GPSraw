@@ -4,10 +4,14 @@
 		android:id="@+id/action_satellites"
 		android:orderInCategory="500"
 		android:title="@string/action_satellites"
+		android:icon="@drawable/network_cell"
+		android:showAsAction="ifRoom"
 	/>
 	<item
 		android:id="@+id/action_settings"
 		android:orderInCategory="1000"
 		android:title="@string/action_settings"
+		android:icon="@drawable/action_settings"
+		android:showAsAction="ifRoom"
 	/>
 </menu>
