@@ -4,8 +4,5 @@ An Android application that displays current location in latitude, longitude and
 
 No mapping, no logging, no network permissions.
 
-Requires Android 1.6+
+Requires Android 2.2+
 
-TODO:
-* pretty icon
-* two-point distance calculator
