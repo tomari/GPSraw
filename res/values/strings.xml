@@ -51,12 +51,12 @@
 	
 	<string name="title_activity_satellites">Satellites</string>
 	<string name="fstRowPRN">PRN\#</string>
-	<string name="fstRowAzi">Azi</string>
-	<string name="fstRowElev">Elev</string>
+	<string name="fstRowAzi">Az°</string>
+	<string name="fstRowElev">El°</string>
 	<string name="fstRowSnr">SNR</string>
-	<string name="fstRowHasAlmanac">Alma</string>
-	<string name="fstRowHasEphemeris">Ephe</string>
-	<string name="fstRowUsedInFix">Used</string>
+	<string name="fstRowHasAlmanac">Alm</string>
+	<string name="fstRowHasEphemeris">Eph</string>
+	<string name="fstRowUsedInFix">Fix</string>
 	<string name="action_satellites">Satellites</string>
 	<string name="checkmark">\u2713</string>
 	<string name="uncheckmark"></string>
