@@ -32,9 +32,9 @@ public class MainActivity extends GPSActivity {
 		setContentView(R.layout.activity_main);
 		// setup spinner to choose a provider
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		if(locationManager!=null) {
+		try {
 			prepareProviderSpinner(locationManager,getBestProvider());
-		}
+		} catch(NullPointerException ignored) {}
 	}
 	private void savePreferences() {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(this);
@@ -139,9 +139,11 @@ public class MainActivity extends GPSActivity {
 	}
 	
 	private void copyToClipboard(CharSequence str) {
-		ClipboardManager cm=(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		cm.setText(str);
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+		try {
+			ClipboardManager cm=(ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+			cm.setText(str);
+			Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+		} catch (NullPointerException e) {}
 	}
 	private CharSequence getLocationText() {
 		TextView latView=(TextView)findViewById(R.id.latTextView);
