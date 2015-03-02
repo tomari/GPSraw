@@ -33,7 +33,7 @@
 		android:id="@+id/altTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/longTextView"
+		android:layout_below="@id/longTextView"
 		android:layout_centerHorizontal="true"
 		android:text="@string/placeholder_alt"
 		android:textAppearance="?android:attr/textAppearanceLarge"
@@ -58,7 +58,7 @@
 		android:id="@+id/accuracyTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_above="@+id/latTextView"
+		android:layout_above="@id/latTextView"
 		android:layout_centerHorizontal="true"
 		android:text="@string/placeholder_acc"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
