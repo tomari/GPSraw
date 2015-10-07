@@ -69,9 +69,9 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
-		android:drawableLeft="@drawable/satellite"
+		android:drawableLeft="@drawable/satellite_vec"
 		android:drawablePadding="@dimen/padding_satellite_icon"
-		android:drawableStart="@drawable/satellite"
+		android:drawableStart="@drawable/satellite_vec"
 		android:text="@string/placeholder_nsatellite"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:visibility="invisible" />
