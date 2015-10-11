@@ -28,14 +28,10 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	protected static final int SATELLITE_STATUS_SEARCHING=1;
 	protected static final int SATELLITE_STATUS_UNAVAIL=2;
 	private LocationFormatter locFormatter;
-	private boolean location_denied=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			requestLocationPermission();
-		}
 		loadPreferences();
 	}
 	private void loadPreferences() {
@@ -46,6 +42,9 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	public void onResume() {
 		super.onResume();
 		locFormatter=new LocationFormatter(this);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			requestLocationPermission();
+		}
 		if(setupLocationProviders()) {
 			setSatelliteStatus(setupLocationListener());
 		}

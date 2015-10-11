@@ -44,7 +44,9 @@ public class SatellitesActivity extends GPSActivity implements GpsStatus.Listene
 		super.onResume();
 		LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(lm!=null) {
-			lm.addGpsStatusListener(this);
+			try {
+				lm.addGpsStatusListener(this);
+			} catch (SecurityException ignored) { }
 		}
 	}
 	@Override
