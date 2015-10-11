@@ -53,7 +53,11 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 			// set selected provider and register update notifications
 			String provider=(preferred_provider==null)?bestProvider:preferred_provider;
 			if(provider!=null && locationManager.getProvider(provider)!=null) {
-				locationManager.requestLocationUpdates(provider, 0, 0, this);
+				try {
+					locationManager.requestLocationUpdates(provider, 0, 0, this);
+				} catch(SecurityException e) {
+					return false;
+				}
 				return true;
 			}
 		}
@@ -62,7 +66,9 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	private void detachLocationServices() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(locationManager!=null) {
-			locationManager.removeUpdates(this);
+			try {
+				locationManager.removeUpdates(this);
+			} catch(SecurityException ignored) { }
 		}
 	}
 	private String selectBestLocationProvider(LocationManager locationManager) {
@@ -100,6 +106,7 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	protected TextView accuracyTextView() {
 		return null;
 	}
+	protected TextView speedTextView() { return null; }
 	private void setSatelliteStatus(boolean searching) {
 		ProgressBar pbar=satelliteProgressBar();
 		if(pbar!=null) {
