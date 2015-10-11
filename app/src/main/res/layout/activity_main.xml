@@ -53,7 +53,8 @@
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:textSize="@dimen/numbers_size"
 			android:paddingLeft="@dimen/padding_speed_left"
-			/>
+			android:clickable="true"
+			android:onClick="copySpeed" />
 	</LinearLayout>
 
 	<ProgressBar

@@ -144,8 +144,8 @@ public class MainActivity extends GPSActivity {
 		} catch (NullPointerException e) {}
 	}
 	private CharSequence getLocationText() {
-		TextView latView=(TextView)findViewById(R.id.latTextView);
-		TextView longView=(TextView)findViewById(R.id.longTextView);
+		TextView latView=latitudeTextView();
+		TextView longView=longitudeTextView();
 		return latView.getText().toString().concat(" ").concat(longView.getText().toString());
 	}
 	private void providerSelected(int index) {
@@ -153,13 +153,9 @@ public class MainActivity extends GPSActivity {
 			setPreferredProvider((String)providerArrayAdapter.getItem(index));
 		} else { setPreferredProvider(null); }
 	}
-	public void copyLocation(View v) {
-		copyToClipboard(getLocationText());
-	}
-	public void copyAltitude(View v) {
-		TextView altTextView=(TextView)findViewById(R.id.altTextView);
-		copyToClipboard(altTextView.getText());
-	}
+	public void copyLocation(View v) { copyToClipboard(getLocationText()); }
+	public void copyAltitude(View v) { copyToClipboard(altitudeTextView().getText()); }
+	public void copySpeed(View v) { copyToClipboard(speedTextView().getText()); }
 	@Override
 	protected boolean setupLocationProviders() {
 		boolean res=super.setupLocationProviders();
