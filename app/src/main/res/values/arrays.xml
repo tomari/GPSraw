@@ -32,4 +32,14 @@
 		<item>5</item>
 		<item>6</item>
 	</string-array>
+	<string-array name="unitofspeed_labels">
+		<item>@string/unitofspeed_ms</item>
+		<item>@string/unitofspeed_kmh</item>
+		<item>@string/unitofspeed_mph</item>
+	</string-array>
+	<string-array name="unitofspeed_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
 </resources>

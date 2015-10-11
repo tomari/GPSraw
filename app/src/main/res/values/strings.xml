@@ -38,6 +38,10 @@
 	<string name="unitoflength_meters">m</string>
 	<string name="unitoflength_feet">ft</string>
 	<string name="unitoflength_default">0</string>
+	<string name="unitofspeed">Unit of speed</string>
+	<string name="unitofspeed_ms">m/s</string>
+	<string name="unitofspeed_kmh">km/h</string>
+	<string name="unitofspeed_mph">mph</string>
 	<string name="locationformat">Location format</string>
 	<string name="locationformat_seconds">DDD°MM\'SS.SS\"</string>
 	<string name="locationformat_minutes">DDD°MM.MMMM\'</string>

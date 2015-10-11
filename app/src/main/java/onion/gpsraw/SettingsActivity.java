@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 	public static final String unitOfLength="pref_unitoflength";
+	public static final String unitOfSpeed="pref_unitofspeed";
 	public static final String locationFormat="pref_locationformat";
 	public static final String mantissaDigits="pref_mantissadigits";
 	@Override

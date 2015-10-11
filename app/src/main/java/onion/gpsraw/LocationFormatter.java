@@ -13,13 +13,16 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 	private Context context;
 	private int cutoff_digits=3;
 	private int unitOfLength=0;
+	private int unitOfSpeed=0;
 	private int locationFormat=Location.FORMAT_SECONDS;
 	private NumberFormat nf;
+	private final String[] unitOfSpeed_labels;
 	
 	public LocationFormatter(Context context) {
 		this.context=context;
 		nf=NumberFormat.getInstance();
 		loadPreferences();
+		unitOfSpeed_labels=context.getResources().getStringArray(R.array.unitofspeed_labels);
 	}
 	public LocationFormatter bye() {
 		PreferenceManager.getDefaultSharedPreferences(context)
@@ -29,9 +32,17 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 	private void loadPreferences() {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(context);
 		loadUnitOfLength(shrP);
+		loadUnitOfSpeed(shrP);
 		loadLocationFormat(shrP);
 		loadMantissaDigits(shrP);
 		shrP.registerOnSharedPreferenceChangeListener(this);
+	}
+	private int loadPreference(SharedPreferences shrP, String prefLabel, String defaultValue) {
+		String str=shrP.getString(prefLabel,defaultValue);
+		int res;
+		try { res=Integer.parseInt(str); }
+		catch (NumberFormatException e) { res=Integer.parseInt(defaultValue); }
+		return res;
 	}
 	private void loadUnitOfLength(SharedPreferences shrP) {
 		String uOL_default=context.getResources().getString(R.string.unitoflength_default);
@@ -41,6 +52,9 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 		} catch (NumberFormatException e) {
 			unitOfLength=Integer.parseInt(uOL_default);
 		}
+	}
+	private void loadUnitOfSpeed(SharedPreferences shrP) {
+		unitOfSpeed=loadPreference(shrP,SettingsActivity.unitOfSpeed,"0");
 	}
 	private void loadMantissaDigits(SharedPreferences shrP) {
 		String md_default=context.getResources().getString(R.string.mantissadigits_default);
@@ -64,6 +78,8 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 	public void onSharedPreferenceChanged(SharedPreferences shrP, String key) {
 		if(SettingsActivity.unitOfLength.equals(key)) {
 			loadUnitOfLength(shrP);
+		} else if(SettingsActivity.unitOfSpeed.equals(key)) {
+			loadUnitOfSpeed(shrP);
 		} else if(SettingsActivity.locationFormat.equals(key)) {
 			loadLocationFormat(shrP);
 		} else if(SettingsActivity.mantissaDigits.equals(key)) {
@@ -171,8 +187,9 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 	public CharSequence convertSpeed(Location loc) {
 		String spd_string;
 		if(loc.hasSpeed()) {
-			float speed = loc.getSpeed();
-			spd_string=nf.format(speed).concat(" m/s");
+			final float multipliers[]={1.0f, 1.e-3f*3600f, 2.2369362920544f};
+			float speed = loc.getSpeed()*multipliers[unitOfSpeed];
+			spd_string=nf.format(speed).concat(" ").concat(unitOfSpeed_labels[unitOfSpeed]);
 		} else {
 			spd_string="";
 		}

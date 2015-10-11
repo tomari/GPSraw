@@ -6,7 +6,13 @@
 		android:entries="@array/unitoflength_labels"
 		android:entryValues="@array/unitoflength_values"
 		android:defaultValue="@string/unitoflength_default" />
-	<ListPreference 
+	<ListPreference
+		android:key="pref_unitofspeed"
+		android:title="@string/unitofspeed"
+		android:entries="@array/unitofspeed_labels"
+		android:entryValues="@array/unitofspeed_values"
+		android:defaultValue="0" />
+	<ListPreference
 		android:key="pref_locationformat"
 		android:title="@string/locationformat"
 		android:entries="@array/locationformat_labels"
