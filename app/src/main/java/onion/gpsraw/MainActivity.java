@@ -30,21 +30,13 @@ public class MainActivity extends GPSActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
-		// setup spinner to choose a provider
-		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		try {
-			prepareProviderSpinner(locationManager,getBestProvider());
-		} catch(NullPointerException ignored) {}
 	}
+
 	private void savePreferences() {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(this);
 		SharedPreferences.Editor e=shrP.edit();
 		e.putString(PREFERRED_PROVIDER_LABEL, getPreferredProvider());
 		e.commit();
-	}
-	@Override
-	public void onResume() {
-		super.onResume();
 	}
 	@Override
 	public void onPause() {
@@ -68,12 +60,16 @@ public class MainActivity extends GPSActivity {
 			actionbar.setSelectedNavigationItem(selectedIndex);
 		}
 	}
-	private void prepareProviderSpinner(LocationManager lm,String bestProvider) {
+	private void prepareProviderSpinner() {
+		LocationManager lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		Spinner sp=(Spinner)findViewById(R.id.providerSpinner);
-		List<String> providers=lm.getProviders(true);
+		List<String> providers;
+		try { providers=lm.getProviders(true); } catch(NullPointerException e) { return; } // location not permitted?
 		providerArrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,providers);
 		providerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-		providerArrayAdapter.insert(getResources().getString(R.string.provider_auto).concat(bestProvider), 0);
+		try {
+			providerArrayAdapter.insert(getResources().getString(R.string.provider_auto).concat(getBestProvider()), 0);
+		} catch(NullPointerException e) { return; } // location not granted maybe?
 		int idx=(getPreferredProvider()==null)?-1:providers.indexOf(getPreferredProvider());
 		if(Build.VERSION.SDK_INT<Build.VERSION_CODES.HONEYCOMB ) {
 			providerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -91,7 +87,7 @@ public class MainActivity extends GPSActivity {
 			});
 		} else {
 			sp.setVisibility(View.GONE);
-			prepareActionBarSpinner(providerArrayAdapter,idx);
+			prepareActionBarSpinner(providerArrayAdapter, idx);
 		}
 	}
 	@Override
@@ -163,5 +159,13 @@ public class MainActivity extends GPSActivity {
 	public void copyAltitude(View v) {
 		TextView altTextView=(TextView)findViewById(R.id.altTextView);
 		copyToClipboard(altTextView.getText());
+	}
+	@Override
+	protected boolean setupLocationProviders() {
+		boolean res=super.setupLocationProviders();
+		if(res) {
+			prepareProviderSpinner();;
+		}
+		return res;
 	}
 }

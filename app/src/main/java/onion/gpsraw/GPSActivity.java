@@ -2,14 +2,18 @@ package onion.gpsraw;
 
 import java.text.NumberFormat;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -24,12 +28,15 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	protected static final int SATELLITE_STATUS_SEARCHING=1;
 	protected static final int SATELLITE_STATUS_UNAVAIL=2;
 	private LocationFormatter locFormatter;
+	private boolean location_denied=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			requestLocationPermission();
+		}
 		loadPreferences();
-		setupLocationProviders();
 	}
 	private void loadPreferences() {
 		SharedPreferences shrP=PreferenceManager.getDefaultSharedPreferences(this);
@@ -39,7 +46,9 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	public void onResume() {
 		super.onResume();
 		locFormatter=new LocationFormatter(this);
-		setSatelliteStatus(setupLocationListener());
+		if(setupLocationProviders()) {
+			setSatelliteStatus(setupLocationListener());
+		}
 	}
 	@Override
 	public void onPause() {
@@ -80,7 +89,7 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 		c.setPowerRequirement(Criteria.NO_REQUIREMENT);
 		return locationManager.getBestProvider(c,true);
 	}
-	private boolean setupLocationProviders() {
+	protected boolean setupLocationProviders() {
 		LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		if(locationManager!=null) {
 			bestProvider = selectBestLocationProvider(locationManager);
@@ -188,4 +197,26 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 	}
 	protected String getPreferredProvider() { return preferred_provider; }
 	protected String getBestProvider() { return bestProvider; }
+
+	// Android 6.0 (Marshmallow) permission behavior change
+	private final int GPSRAW_LOCATION_PERMISSION = 0x5454;
+	@TargetApi(Build.VERSION_CODES.M)
+	private void requestLocationPermission() {
+		if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+				!= PackageManager.PERMISSION_GRANTED) {
+			requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+					GPSRAW_LOCATION_PERMISSION);
+		}
+	}
+	@TargetApi(Build.VERSION_CODES.M)
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		if(requestCode == GPSRAW_LOCATION_PERMISSION) {
+			if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				if(setupLocationProviders()) {
+					setSatelliteStatus(setupLocationListener());
+				}
+			}
+		}
+	}
 }
