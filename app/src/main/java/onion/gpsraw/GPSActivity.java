@@ -169,13 +169,16 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 			setSatelliteStatus(false);
 		}
 	}
+	private void setTextIfNotNull(TextView t, CharSequence s) {
+		try { t.setText(s); } catch(NullPointerException ignored) {}
+	}
 	private void putLocationOnScreen(Location loc) {
 		TextView t;
-		t=latitudeTextView(); if(t!=null) { t.setText(locFormatter.convertLatitude(loc)); }
-		t=longitudeTextView(); if(t!=null) { t.setText(locFormatter.convertLongitude(loc)); }
-		t=altitudeTextView(); if(t!=null) { t.setText(locFormatter.convertAltitude(loc)); }
-		t=accuracyTextView(); if(t!=null) { t.setText(locFormatter.convertAccuracy(loc)); }
-		t=speedTextView(); try { t.setText(locFormatter.convertSpeed(loc)); } catch(NullPointerException ignored) {}
+		setTextIfNotNull(latitudeTextView(),locFormatter.convertLatitude(loc));
+		setTextIfNotNull(longitudeTextView(),locFormatter.convertLongitude(loc));
+		setTextIfNotNull(altitudeTextView(),locFormatter.convertAltitude(loc));
+		setTextIfNotNull(accuracyTextView(),locFormatter.convertAccuracy(loc));
+		setTextIfNotNull(speedTextView(),locFormatter.convertSpeed(loc));
 		
 		TextView nSat=numSatellitesTextView();
 		if(nSat!=null) {
