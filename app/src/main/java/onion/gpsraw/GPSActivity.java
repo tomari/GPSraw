@@ -167,6 +167,7 @@ public abstract class GPSActivity extends Activity implements LocationListener {
 		t=longitudeTextView(); if(t!=null) { t.setText(locFormatter.convertLongitude(loc)); }
 		t=altitudeTextView(); if(t!=null) { t.setText(locFormatter.convertAltitude(loc)); }
 		t=accuracyTextView(); if(t!=null) { t.setText(locFormatter.convertAccuracy(loc)); }
+		t=speedTextView(); try { t.setText(locFormatter.convertSpeed(loc)); } catch(NullPointerException ignored) {}
 		
 		TextView nSat=numSatellitesTextView();
 		if(nSat!=null) {

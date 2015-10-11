@@ -1,4 +1,5 @@
 <resources>
     <dimen name="numbers_size">72sp</dimen>
     <dimen name="padding_above_altitude">16dp</dimen>
+    <dimen name="padding_speed_left">32dp</dimen>
 </resources>

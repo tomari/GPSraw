@@ -119,6 +119,8 @@ public class MainActivity extends GPSActivity {
 		return (TextView) findViewById(R.id.accuracyTextView);
 	}
 	@Override
+	protected TextView speedTextView() { return (TextView) findViewById(R.id.speedTextView); }
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;

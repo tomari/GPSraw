@@ -7,10 +7,12 @@
 	<string name="placeholder_lat">35°39\'30.959\"N</string>
 	<string name="placeholder_long">139°44\'43.594\"E</string>
 	<string name="placeholder_alt">1823 m</string>
+	<string name="placeholder_speed">921 km/s</string>
 -->
 	<string name="placeholder_lat"></string>
 	<string name="placeholder_long"></string>
 	<string name="placeholder_alt"></string>
+	<string name="placeholder_speed"></string>
 	<string name="placeholder_acc"></string>
 	<string name="placeholder_nsatellite">0</string>
 	<string name="lat_north">N</string>

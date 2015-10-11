@@ -168,4 +168,14 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 			return null;
 		}
 	}
+	public CharSequence convertSpeed(Location loc) {
+		String spd_string;
+		if(loc.hasSpeed()) {
+			float speed = loc.getSpeed();
+			spd_string=nf.format(speed).concat(" m/s");
+		} else {
+			spd_string="";
+		}
+		return spd_string;
+	}
 }
