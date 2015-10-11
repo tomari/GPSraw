@@ -42,6 +42,7 @@
 	<string name="unitofspeed_ms">m/s</string>
 	<string name="unitofspeed_kmh">km/h</string>
 	<string name="unitofspeed_mph">mph</string>
+	<string name="unitofspeed_default">0</string>
 	<string name="locationformat">Location format</string>
 	<string name="locationformat_seconds">DDD°MM\'SS.SS\"</string>
 	<string name="locationformat_minutes">DDD°MM.MMMM\'</string>

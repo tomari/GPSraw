@@ -45,34 +45,20 @@ public class LocationFormatter implements SharedPreferences.OnSharedPreferenceCh
 		return res;
 	}
 	private void loadUnitOfLength(SharedPreferences shrP) {
-		String uOL_default=context.getResources().getString(R.string.unitoflength_default);
-		String uOL_str=shrP.getString(SettingsActivity.unitOfLength, uOL_default);
-		try {
-			unitOfLength=Integer.parseInt(uOL_str);
-		} catch (NumberFormatException e) {
-			unitOfLength=Integer.parseInt(uOL_default);
-		}
+		unitOfLength=loadPreference(shrP,SettingsActivity.unitOfLength,
+				context.getResources().getString(R.string.unitoflength_default));
 	}
 	private void loadUnitOfSpeed(SharedPreferences shrP) {
-		unitOfSpeed=loadPreference(shrP,SettingsActivity.unitOfSpeed,"0");
+		unitOfSpeed=loadPreference(shrP,SettingsActivity.unitOfSpeed,
+				context.getResources().getString(R.string.unitofspeed_default));
 	}
 	private void loadMantissaDigits(SharedPreferences shrP) {
-		String md_default=context.getResources().getString(R.string.mantissadigits_default);
-		String mD_str=shrP.getString(SettingsActivity.mantissaDigits,md_default);
-		try {
-			cutoff_digits=Integer.parseInt(mD_str);
-		} catch (NumberFormatException e) {
-			cutoff_digits=Integer.parseInt(md_default);
-		}
+		cutoff_digits=loadPreference(shrP,SettingsActivity.mantissaDigits,
+				context.getResources().getString(R.string.mantissadigits_default));
 	}
 	private void loadLocationFormat(SharedPreferences shrP) {
-		String lf_default=context.getResources().getString(R.string.locationformat_default);
-		String lf_str=shrP.getString(SettingsActivity.locationFormat,lf_default);
-		try {
-			locationFormat=Integer.parseInt(lf_str);
-		} catch (NumberFormatException e) {
-			locationFormat=Integer.parseInt(lf_default);
-		}
+		locationFormat=loadPreference(shrP,SettingsActivity.locationFormat,
+				context.getResources().getString(R.string.locationformat_default));
 	}
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences shrP, String key) {

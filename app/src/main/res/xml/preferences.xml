@@ -11,7 +11,7 @@
 		android:title="@string/unitofspeed"
 		android:entries="@array/unitofspeed_labels"
 		android:entryValues="@array/unitofspeed_values"
-		android:defaultValue="0" />
+		android:defaultValue="@string/unitofspeed_default" />
 	<ListPreference
 		android:key="pref_locationformat"
 		android:title="@string/locationformat"
