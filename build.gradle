@@ -4,11 +4,14 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.4.0-beta3'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 allprojects {
     repositories {
         jcenter()
     }
+}
+
+dependencies {
 }
